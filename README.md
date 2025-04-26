@@ -27,4 +27,4 @@ Create an application that monitors sound levels (measured in decibels) in a giv
 
 
 ### Commands were used during the development
-`docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.1.0`
+`docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.1-management`
