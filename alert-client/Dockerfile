@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy only necessary files for dependency resolution
 COPY .mvn/ ./.mvn
 COPY mvnw pom.xml ./
+RUN chmod +x ./mvnw
 RUN ./mvnw dependency:go-offline
 
 EXPOSE 5672
