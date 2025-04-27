@@ -29,9 +29,11 @@ public class ReceiveSoundLevel {
             channel = connection.createChannel();
             channel.queueDeclare(queueName, false, false, false, null);
 
+            SendLevelAlert sendLevelAlert = new SendLevelAlert();
+
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
-                System.out.println(" [x] Received '" + message + "'");
+//                System.out.println(" [x] Received '" + message + "'");
 
                 if (queue.size() > maxSize) {
                     queue.poll();
@@ -44,11 +46,12 @@ public class ReceiveSoundLevel {
                 if (soundLevel>80) {
                     queue.add(soundLevel);
                 }
-                if (timeDiff > 30000) {
+                if (timeDiff > 30000 && queue.size() >= 5) {
                     System.out.println(" [x] Sound level: " + Collections.max(queue) + " dB");
                     System.out.println(" [x] Time since last message: " + currentTic + " ms");
                     lastTic = currentTic;
                     queue.clear();
+                    sendLevelAlert.sendMessage();
                 }
             };
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
