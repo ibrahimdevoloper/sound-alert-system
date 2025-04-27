@@ -12,7 +12,7 @@ public class SendToQueue {
 
     public SendToQueue() {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost("queue-server");
         try {
             Connection connection = factory.newConnection();
             channel = connection.createChannel();

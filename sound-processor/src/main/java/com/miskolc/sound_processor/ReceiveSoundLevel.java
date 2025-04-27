@@ -23,7 +23,7 @@ public class ReceiveSoundLevel {
 
     public ReceiveSoundLevel() {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost("queue-server");
         try {
             Connection connection = factory.newConnection();
             channel = connection.createChannel();
