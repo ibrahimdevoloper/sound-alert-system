@@ -1,0 +1,44 @@
+# building the containrs in the subdirectory
+
+version: '3.8'
+services:
+  queue-server:
+    image: 'rabbitmq:4.1-management'
+    hostname: queue-server
+    container_name: queue-server
+    networks:
+      - my-network
+    ports:
+      - 5672:5672
+      - 15672:15672
+  sound-generator:
+    container_name: sound-generator
+    networks:
+      - my-network
+    build:
+      context: ./sound-generator
+      dockerfile: Dockerfile
+    depends_on:
+      - queue-server
+  sound-processor:
+    container_name: sound-processor
+    networks:
+      - my-network
+    build:
+      context: ./sound-processor
+      dockerfile: Dockerfile
+    depends_on:
+      - sound-generator
+  alert-client:
+    container_name: alert-client
+    networks:
+      - my-network
+    build:
+      context: ./alert-client
+      dockerfile: Dockerfile
+    depends_on:
+      - sound-processor
+networks:
+  my-network:
+    driver: bridge
+
