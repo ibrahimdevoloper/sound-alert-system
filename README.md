@@ -25,6 +25,12 @@ Create an application that monitors sound levels (measured in decibels) in a giv
 - High noise identification: Check that readings above 80 dB are recognized properly.
 - Alert message: Verify that an alert is sent to the soundAlertQueue and that the reporting client prints it to the console.
 
+## Start the system
+- just put the following command: `docker-compose up`
 
 ### Commands were used during the development
 `docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.1-management`
+
+### Good reference for docker development with Springboot
+- [Kickstart Your Spring Boot Application Development](https://www.docker.com/blog/kickstart-your-spring-boot-application-development/)
+
